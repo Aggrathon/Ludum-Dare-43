@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
 	static GameManager instance;
 
 	public float tickRate = 1f;
+	public UnityEvent onTick;
 
 	float nextTick;
 	List<State> states;
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
 		{
 			for (int i = 0; i < states.Count; i++)
 				states[i].Tick();
+			onTick.Invoke();
 			nextTick += tickRate;
 		}
 	}
@@ -35,4 +38,14 @@ public class GameManager : MonoBehaviour
 	{
 		instance.states.Add(state);
 	} 
+
+	public static State GetRandomEnemyState(State self)
+	{
+		if (self == null)
+			return instance.states[Random.Range(0, instance.states.Count)];
+		int rnd = Random.Range(0, instance.states.Count-1);
+		if (self == instance.states[rnd])
+			rnd = instance.states.Count - 1;
+		return instance.states[rnd];
+	}
 }

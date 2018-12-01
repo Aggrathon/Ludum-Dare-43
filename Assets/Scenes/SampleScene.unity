@@ -198,6 +198,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114641395505899552, guid: 025b996067e87514ea5c73697db1985b,
+        type: 2}
+      propertyPath: baseGoldMultiplier
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 025b996067e87514ea5c73697db1985b, type: 2}
   m_IsPrefabAsset: 0
@@ -305,7 +310,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b728bcbdff4b2468b50b519fd647d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tickRate: 1
+  tickRate: 2
+  onTick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!4 &788283863
 Transform:
   m_ObjectHideFlags: 0

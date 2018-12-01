@@ -30,14 +30,18 @@ public class State : MonoBehaviour {
 	[NonSerialized] public float foodCost;
 	[NonSerialized] public float goldCost;
 
-
 	[Header("Status")]
 	public List<AStateModifier> modifiers;
 	[Range(0f,0.1f)] public float autoSacrifice = 0.05f;
-	public bool aiAllocate = true;
-	[Range(0f, 0.5f)] public float aiMilitary = 0.4f;
-	[Range(0f, 0.5f)] public float aiMiners = 0.2f;
+	public bool aI = true;
+	[Range(0f, 0.5f)] public float aiFree = 0.2f;
+	[Range(0, 500)] public int aiMinMilitary = 100;
 	[Range(0, 1000)] public int aiMilitarySize = 200;
+
+	[Header("Abilities")]
+	public List<AStateModifier> blessings;
+	public List<AStateModifier> curses;
+
 
 	void Start () {
 		GameManager.RegisterState(this);
@@ -64,8 +68,11 @@ public class State : MonoBehaviour {
 		}
 		if (autoSacrifice > 0)
 			AutoSacrifice();
-		if (aiAllocate)
+		if (aI)
+		{
 			AiAllocate();
+			AiAct();
+		}
 	}
 
 	void AutoSacrifice()
@@ -105,10 +112,10 @@ public class State : MonoBehaviour {
 		}
 		if (people > 0)
 		{
-			delta = Mathf.FloorToInt((aiMilitary - (float)warriors / (float)humans) * (float)humans);
+			delta = Mathf.Max(warriors-aiMinMilitary, people - (int)(humans * aiFree));
+			delta = Mathf.Min(people, delta);
 			if (delta > 0)
 			{
-				delta = Mathf.Min(delta, people);
 				delta = Mathf.Min(delta, Mathf.FloorToInt(gold / goldCost));
 				delta = Mathf.Min(delta, Mathf.FloorToInt(food / foodCost));
 				people -= delta;
@@ -119,13 +126,83 @@ public class State : MonoBehaviour {
 		}
 		if (people > 0)
 		{
-			delta = Mathf.FloorToInt((aiMiners - (float)miners / (float)humans) * (float)humans);
+			delta = people - (int)(humans * aiFree);
 			if (delta > 0)
 			{
 				delta = Mathf.Min(delta, people);
 				people -= delta;
 				miners += delta;
 			}
+		}
+	}
+
+	void AiAct()
+	{
+		State target = GameManager.GetRandomEnemyState(this);
+		if (warriors > aiMilitarySize)
+		{
+			Attack(target);
+			if (piety > 0.75 && curses.Count > 0)
+			{
+				Curse(curses.GetRandom(), target);
+			}
+		}
+		else if (piety > 0.95)
+		{
+			if (curses.Count != 0 || blessings.Count != 0)
+			{
+				if (curses.Count == 0)
+					Bless(blessings.GetRandom());
+				else if (blessings.Count == 0)
+					Curse(curses.GetRandom(), target);
+				else if (UnityEngine.Random.value > 0.5f)
+					Curse(curses.GetRandom(), target);
+				else
+					Bless(blessings.GetRandom());
+			}
+		}
+	}
+
+	public void Attack(State target)
+	{
+		warriors = 0;
+	}
+
+	public void Bless(AStateModifier mod)
+	{
+		StartCoroutine(AddBlesssing(mod, this));
+	}
+
+	IEnumerator AddBlesssing(AStateModifier mod, State target)
+	{
+		if (blessings.Remove(mod))
+		{
+			piety -= mod.cost;
+			target.modifiers.Add(mod);
+			yield return new WaitForSeconds(mod.time);
+			target.modifiers.Remove(mod);
+			if (mod.cooldown > mod.time)
+				yield return new WaitForSeconds(mod.cooldown - mod.time);
+			blessings.Add(mod);
+		}
+	}
+
+	public void Curse(AStateModifier mod, State target)
+	{
+		StartCoroutine(AddCurse(mod, target));
+	}
+
+	IEnumerator AddCurse(AStateModifier mod, State target)
+	{
+		if (curses.Remove(mod))
+		{
+			piety -= mod.cost;
+			target.modifiers.Add(mod);
+			yield return new WaitForSeconds(mod.time);
+			target.modifiers.Remove(mod);
+			if (mod.cooldown > mod.time)
+				yield return new WaitForSeconds(mod.cooldown - mod.time);
+			curses.Add(mod);
 		}
 	}
 }

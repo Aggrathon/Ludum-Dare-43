@@ -61,18 +61,29 @@ MonoBehaviour:
   warriors: 0
   piety: 0.5
   baseFoodMultiplier: 3
-  baseGoldMultiplier: 0.05
+  baseGoldMultiplier: 0.1
   baseFertility: 10
-  foodFertility: 0.05
+  foodFertility: 0.1
   basePietyDecay: 0.03
   baseFoodCost: 1
   baseGoldCost: 1
   modifiers: []
   autoSacrifice: 0.05
-  aiAllocate: 1
-  aiMilitary: 0.4
-  aiMiners: 0.2
+  aI: 1
+  aiFree: 0.2
+  aiMinMilitary: 100
   aiMilitarySize: 200
+  blessings:
+  - {fileID: 11400000, guid: 28c7dd25f1b9001429bb99765394f4d6, type: 2}
+  - {fileID: 11400000, guid: 5e4b6f6cb8e05e94ca91635bc6583752, type: 2}
+  - {fileID: 11400000, guid: bcfc8efffddd065499f96873d9aebf36, type: 2}
+  curses:
+  - {fileID: 11400000, guid: d7c454f923da3514aa46f4c3d86928ff, type: 2}
+  - {fileID: 11400000, guid: f51d4a7a77343924b8b4ecaf892795aa, type: 2}
+  - {fileID: 11400000, guid: 1fa54fc0f08a596439176dcbf42b19b2, type: 2}
+  - {fileID: 11400000, guid: 50d471fc0de3e794e898040d78ba6bc0, type: 2}
+  - {fileID: 11400000, guid: 20d531f5dfa2f3d4c846f7373bb3c3a9, type: 2}
+  - {fileID: 11400000, guid: 50d471fc0de3e794e898040d78ba6bc0, type: 2}
 --- !u!212 &212708060806030980
 SpriteRenderer:
   m_ObjectHideFlags: 1
