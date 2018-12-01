@@ -67,23 +67,33 @@ MonoBehaviour:
   basePietyDecay: 0.03
   baseFoodCost: 1
   baseGoldCost: 1
+  baseArmyMorale: 0.6
+  baseArmyDamage: 0.1
+  baseArmyCapture: 0.2
   modifiers: []
   autoSacrifice: 0.05
   aI: 1
   aiFree: 0.2
-  aiMinMilitary: 100
+  aiMinMilitary: 80
   aiMilitarySize: 200
   blessings:
   - {fileID: 11400000, guid: 28c7dd25f1b9001429bb99765394f4d6, type: 2}
   - {fileID: 11400000, guid: 5e4b6f6cb8e05e94ca91635bc6583752, type: 2}
   - {fileID: 11400000, guid: bcfc8efffddd065499f96873d9aebf36, type: 2}
+  - {fileID: 11400000, guid: 20b38bcc06812f844bda9b566ccb27b1, type: 2}
+  - {fileID: 11400000, guid: 72437f94b3125974296dd6da86b9b4b0, type: 2}
+  - {fileID: 11400000, guid: 56e2e570452f8994eac86e0f870f9f84, type: 2}
+  - {fileID: 11400000, guid: 7e58ca6bbe848f441958f42167283220, type: 2}
   curses:
   - {fileID: 11400000, guid: d7c454f923da3514aa46f4c3d86928ff, type: 2}
   - {fileID: 11400000, guid: f51d4a7a77343924b8b4ecaf892795aa, type: 2}
   - {fileID: 11400000, guid: 1fa54fc0f08a596439176dcbf42b19b2, type: 2}
   - {fileID: 11400000, guid: 50d471fc0de3e794e898040d78ba6bc0, type: 2}
   - {fileID: 11400000, guid: 20d531f5dfa2f3d4c846f7373bb3c3a9, type: 2}
-  - {fileID: 11400000, guid: 50d471fc0de3e794e898040d78ba6bc0, type: 2}
+  - {fileID: 11400000, guid: 837d24087e6994842b4a9fc9c5464194, type: 2}
+  - {fileID: 11400000, guid: 029638b3140968e4b932b17fb80a22d9, type: 2}
+  armyPrefab: {fileID: 114670085593947158, guid: dc1ffe4f08b793d4b9e6babfbda38a07,
+    type: 2}
 --- !u!212 &212708060806030980
 SpriteRenderer:
   m_ObjectHideFlags: 1

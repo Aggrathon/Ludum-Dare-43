@@ -8,16 +8,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aff2b8a236386b43a7596ea370dad3e, type: 3}
-  m_Name: Bountiful Harvest
+  m_Script: {fileID: 11500000, guid: 86a78d592d6a2b942843934a619c159d, type: 3}
+  m_Name: Legendary Warriors
   m_EditorClassIdentifier: 
-  time: 20
+  time: 7
   cooldown: 20
   cost: 0.5
-  description: Increases the food production.
-  foodModifier: 1.2
-  goldModifier: 1
-  fertilityModifier: 1.2
-  pietyModifier: 1
-  goldCostModifier: 1
-  foodCostModifier: 1
+  description: Decreases the damage of an enemy army.
+  morale: 1
+  damage: 1.2
+  capture: 1
+  foodCost: 1.1
+  goldCost: 1.1

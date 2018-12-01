@@ -8,13 +8,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf1477776e51d14b8e053cb33934684, type: 3}
-  m_Name: Earthquake
+  m_Script: {fileID: 11500000, guid: 86a78d592d6a2b942843934a619c159d, type: 3}
+  m_Name: Inspiring Speech
   m_EditorClassIdentifier: 
   time: 7
   cooldown: 20
   cost: 0.5
-  description: Cause structural and humanitarian damage to an enemy state.
-  food: 0.9
-  gold: 0.85
-  people: 0.95
+  description: Encourage your warriors to capture more prisoners
+  morale: 1
+  damage: 1
+  capture: 1.5
+  foodCost: 1
+  goldCost: 1

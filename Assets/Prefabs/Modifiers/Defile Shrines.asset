@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aff2b8a236386b43a7596ea370dad3e, type: 3}
   m_Name: Defile Shrines
   m_EditorClassIdentifier: 
-  time: 6
+  time: 7
   cooldown: 20
   cost: 0.5
   description: Decrease the piety of an enemy state.

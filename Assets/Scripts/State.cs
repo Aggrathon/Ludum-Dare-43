@@ -23,12 +23,18 @@ public class State : MonoBehaviour {
 	[SerializeField] float basePietyDecay = 0.03f;
 	[SerializeField] float baseFoodCost = 1f;
 	[SerializeField] float baseGoldCost = 1f;
+	[Range(0, 1)][SerializeField] float baseArmyMorale = 0.5f;
+	[Range(0, 1)] [SerializeField] float baseArmyDamage = 0.1f;
+	[Range(0, 1)] [SerializeField] float baseArmyCapture = 0.2f;
 	[NonSerialized] public float foodMultiplier;
 	[NonSerialized] public float goldMultiplier;
 	[NonSerialized] public float fertility;
 	[NonSerialized] public float pietyDecay;
 	[NonSerialized] public float foodCost;
 	[NonSerialized] public float goldCost;
+	[NonSerialized] public float armyMorale;
+	[NonSerialized] public float armyDamage;
+	[NonSerialized] public float armyCapture;
 
 	[Header("Status")]
 	public List<AStateModifier> modifiers;
@@ -41,6 +47,7 @@ public class State : MonoBehaviour {
 	[Header("Abilities")]
 	public List<AStateModifier> blessings;
 	public List<AStateModifier> curses;
+	public Army armyPrefab;
 
 
 	void Start () {
@@ -55,6 +62,9 @@ public class State : MonoBehaviour {
 		pietyDecay = basePietyDecay;
 		goldCost = baseGoldCost;
 		foodCost = baseFoodCost;
+		armyDamage = baseArmyDamage;
+		armyMorale = baseArmyMorale;
+		armyCapture = baseArmyCapture;
 		for (int i = 0; i < modifiers.Count; i++)
 			modifiers[i].Apply(this);
 		food += farmers * foodMultiplier;
@@ -165,6 +175,8 @@ public class State : MonoBehaviour {
 
 	public void Attack(State target)
 	{
+		Army go = Instantiate<Army>(armyPrefab);
+		go.Setup(this, warriors, target);
 		warriors = 0;
 	}
 
