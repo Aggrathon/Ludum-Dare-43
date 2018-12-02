@@ -313,7 +313,7 @@ MonoBehaviour:
   piety: 0.5
   baseFoodMultiplier: 3
   baseGoldMultiplier: 0.1
-  baseFertility: 10
+  baseFertility: 15
   foodFertility: 0.01
   basePietyDecay: 0.02
   baseFoodCost: 1

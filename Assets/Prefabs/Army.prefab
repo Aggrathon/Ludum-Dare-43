@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c7dde740384b64fa7217ee3da47caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1
   minDistance: 0.75
   battlePrefab: {fileID: 114580501364966886, guid: c519eced65ad7074e8410a9afcef25cd,
     type: 2}

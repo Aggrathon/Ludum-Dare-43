@@ -86,7 +86,7 @@ public class State : MonoBehaviour, IBattleParticipant {
 			AiAct();
 			AiAllocate();
 		}
-		float scale = Mathf.Max(0.25f, (Mathf.Log((float)humans) - 1f) / 3.6f);
+		float scale = Mathf.Max(0.25f, (Mathf.Log((float)humans) - 1.5f) / 3.6f);
 		transform.localScale = Vector3.one * scale;
 	}
 
