@@ -8,6 +8,9 @@ public class UIModifierWindow : MonoBehaviour
 	public State player;
 	public UIPiety pietyDisplay;
 	public TextMeshProUGUI title;
+	public GameObject cancelButton;
+
+	AStateModifier curse;
 
 	public void ShowBlessings()
 	{
@@ -49,9 +52,10 @@ public class UIModifierWindow : MonoBehaviour
 			button.onClick.RemoveAllListeners();
 			int j = i;
 			button.onClick.AddListener(() => {
-				player.Curse(player.curses[j], GameManager.GetRandomEnemyState(player));
+				curse = player.curses[j];
 				gameObject.SetActive(false);
-				pietyDisplay.Tick();
+				cancelButton.SetActive(true);
+				UIStateSelectors.SelectState(OnSelect);
 			});
 			button.interactable = player.piety > player.curses[i].cost;
 			panel.gameObject.SetActive(true);
@@ -59,5 +63,12 @@ public class UIModifierWindow : MonoBehaviour
 		for (int i = player.curses.Count + 2; i < transform.childCount; i++)
 			transform.GetChild(i).gameObject.SetActive(false);
 		gameObject.SetActive(true);
+	}
+
+	void OnSelect(State state)
+	{
+		cancelButton.SetActive(false);
+		player.Curse(curse, state);
+		pietyDisplay.Tick();
 	}
 }

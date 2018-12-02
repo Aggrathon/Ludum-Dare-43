@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cece0ea3141054c953cbbdd6410062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intervals: 1
+  intervals: 1.2
   defenderMorale: {fileID: 4196089117131006}
   attackerMorale: {fileID: 4390289142359134}
 --- !u!212 &212527169535895472
@@ -242,12 +242,12 @@ SpriteRenderer:
   m_SortingLayerID: -1788224903
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 53108a36d27afbf4c9623038408806b8, type: 3}
-  m_Color: {r: 1, g: 0.9476305, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1a00fb7adf03ba047a0930fad244140f, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.96484375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

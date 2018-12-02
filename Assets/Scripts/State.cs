@@ -80,38 +80,32 @@ public class State : MonoBehaviour, IBattleParticipant {
 			food -= humans;
 			people += (int)fertility;
 		}
-		if (autoSacrifice > 0)
-			AutoSacrifice();
 		if (aI)
 		{
+			Sacrifice(autoSacrifice);
 			AiAct();
 			AiAllocate();
 		}
+		float scale = Mathf.Max(0.25f, (Mathf.Log((float)humans) - 1f) / 3.6f);
+		transform.localScale = Vector3.one * scale;
 	}
 
-	void AutoSacrifice()
+	public void Sacrifice(float amount)
 	{
-		int humans = this.humans;
-		int sacrifice = (int)(humans * Mathf.Min(autoSacrifice, 1f - piety));
-		int delta = Mathf.Min(sacrifice, prisoners);
-		int total = delta;
-		sacrifice -= delta;
-		prisoners -= delta;
-		if (sacrifice > 0)
+		float humans = (float)this.humans;
+		int sacrifice;
+		if (prisoners > 0)
 		{
-			delta = Mathf.Min(sacrifice, people);
-			total += delta;
-			sacrifice -= delta;
-			people -= delta;
+			sacrifice = Mathf.Min(prisoners, Mathf.FloorToInt(humans * (1f - piety) * 0.25f));
+			prisoners -= sacrifice;
+			float change = (float)sacrifice * 4f / (float)humans;
+			amount -= change;
+			piety += change;
 		}
-		if (sacrifice > 0)
-		{
-			delta = Mathf.Min(sacrifice, miners);
-			total += delta;
-			sacrifice -= delta;
-			miners -= delta;
-		}
-		piety += (float)total / (float)humans;
+		sacrifice = Mathf.FloorToInt(humans * Mathf.Min(amount, 1f - piety) * 0.5f);
+		sacrifice = Mathf.Min(sacrifice, people);
+		people -= sacrifice;
+		piety += (float)sacrifice * 2f / (float)humans;
 	}
 
 	void AiAllocate()
@@ -148,8 +142,6 @@ public class State : MonoBehaviour, IBattleParticipant {
 				miners += delta;
 			}
 		}
-		float scale = Mathf.Max(0.25f, (Mathf.Log((float)humans) - 1f) / 3.6f);
-		transform.localScale = Vector3.one * scale;
 	}
 
 	void AiAct()
@@ -157,7 +149,7 @@ public class State : MonoBehaviour, IBattleParticipant {
 		State target = GameManager.GetRandomEnemyState(this);
 		if (warriors > aiMilitarySize)
 		{
-			Attack(target);
+			Attack(target, warriors*4/5);
 			if (piety > 0.75 && curses.Count > 0)
 			{
 				Curse(curses.GetRandom(), target);
@@ -179,11 +171,12 @@ public class State : MonoBehaviour, IBattleParticipant {
 		}
 	}
 
-	public void Attack(State target)
+	public void Attack(State target, int size=-1)
 	{
 		Army go = Instantiate<Army>(armyPrefab);
-		go.Setup(this, warriors - warriors/5, target);
-		warriors /= 5;
+		if (size < 1) size = warriors;
+		go.Setup(this, size, target);
+		warriors -= size;
 	}
 
 	public void Bless(AStateModifier mod)
@@ -253,25 +246,6 @@ public class State : MonoBehaviour, IBattleParticipant {
 		{
 			piety -= pietyLossOnRaided;
 			aiMilitarySize += aiMilitarySize / 10;
-		}
-	}
-
-	public void ManualSacrifice()
-	{
-		float humans = (float)this.humans;
-		int maxSac = Mathf.FloorToInt(humans * Mathf.Min(0.5f, (1f - piety)));
-		if (prisoners > 0)
-		{
-			int delta = Mathf.Min(maxSac, prisoners);
-			prisoners -= delta;
-			piety += (float)delta / humans;
-			maxSac -= delta;
-		}
-		if (maxSac > 0)
-		{
-			int delta = Mathf.Min(maxSac, people);
-			people -= delta;
-			piety += (float)delta / humans;
 		}
 	}
 }
