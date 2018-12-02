@@ -67,9 +67,10 @@ MonoBehaviour:
   basePietyDecay: 0.03
   baseFoodCost: 1
   baseGoldCost: 1
-  baseArmyMorale: 0.6
+  baseArmyMorale: 0.5
   baseArmyDamage: 0.1
   baseArmyCapture: 0.2
+  pietyLossOnRaided: 0.2
   modifiers: []
   autoSacrifice: 0.05
   aI: 1

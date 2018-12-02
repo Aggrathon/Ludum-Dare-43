@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class State : MonoBehaviour {
+public class State : MonoBehaviour, IBattleParticipant {
 
 	[Header("Resources")]
 	public int people = 100;
@@ -14,8 +14,9 @@ public class State : MonoBehaviour {
 	public int miners = 0;
 	public int warriors = 0;
 	public float piety = 0.5f;
+	public int humans { get { return people + prisoners + farmers + miners + warriors; } }
 
-	[Header("Growth")]
+	[Header("Production")]
 	[SerializeField] float baseFoodMultiplier = 3f;
 	[SerializeField] float baseGoldMultiplier = 0.1f;
 	[SerializeField] float baseFertility = 10f;
@@ -23,21 +24,24 @@ public class State : MonoBehaviour {
 	[SerializeField] float basePietyDecay = 0.03f;
 	[SerializeField] float baseFoodCost = 1f;
 	[SerializeField] float baseGoldCost = 1f;
-	[Range(0, 1)][SerializeField] float baseArmyMorale = 0.5f;
-	[Range(0, 1)] [SerializeField] float baseArmyDamage = 0.1f;
-	[Range(0, 1)] [SerializeField] float baseArmyCapture = 0.2f;
 	[NonSerialized] public float foodMultiplier;
 	[NonSerialized] public float goldMultiplier;
 	[NonSerialized] public float fertility;
 	[NonSerialized] public float pietyDecay;
 	[NonSerialized] public float foodCost;
 	[NonSerialized] public float goldCost;
+
+	[Header("Status")]
+	[Range(0, 1)] [SerializeField] float baseArmyMorale = 0.5f;
+	[Range(0, 1)] [SerializeField] float baseArmyDamage = 0.1f;
+	[Range(0, 1)] [SerializeField] float baseArmyCapture = 0.2f;
+	[Range(0, 1)] public float pietyLossOnRaided = 0.2f;
 	[NonSerialized] public float armyMorale;
 	[NonSerialized] public float armyDamage;
 	[NonSerialized] public float armyCapture;
-
-	[Header("Status")]
 	public List<AStateModifier> modifiers;
+
+	[Header("AI")]
 	[Range(0f,0.1f)] public float autoSacrifice = 0.05f;
 	public bool aI = true;
 	[Range(0f, 0.5f)] public float aiFree = 0.2f;
@@ -80,8 +84,8 @@ public class State : MonoBehaviour {
 			AutoSacrifice();
 		if (aI)
 		{
-			AiAllocate();
 			AiAct();
+			AiAllocate();
 		}
 	}
 
@@ -112,7 +116,7 @@ public class State : MonoBehaviour {
 
 	void AiAllocate()
 	{
-		int humans = (prisoners + farmers + miners + warriors + people);
+		int humans = this.humans;
 		int delta = Mathf.CeilToInt((humans + fertility - farmers * foodMultiplier) / foodMultiplier);
 		if (delta > 0 && food * 4 < humans)
 		{
@@ -144,6 +148,8 @@ public class State : MonoBehaviour {
 				miners += delta;
 			}
 		}
+		float scale = Mathf.Max(0.25f, (Mathf.Log((float)humans) - 1f) / 3.6f);
+		transform.localScale = Vector3.one * scale;
 	}
 
 	void AiAct()
@@ -176,8 +182,8 @@ public class State : MonoBehaviour {
 	public void Attack(State target)
 	{
 		Army go = Instantiate<Army>(armyPrefab);
-		go.Setup(this, warriors, target);
-		warriors = 0;
+		go.Setup(this, warriors - warriors/5, target);
+		warriors /= 5;
 	}
 
 	public void Bless(AStateModifier mod)
@@ -215,6 +221,38 @@ public class State : MonoBehaviour {
 			if (mod.cooldown > mod.time)
 				yield return new WaitForSeconds(mod.cooldown - mod.time);
 			curses.Add(mod);
+		}
+	}
+	
+	public Vector3 position { get { return transform.position; } }
+
+	public float GetMorale()
+	{
+		return warriors;
+	}
+
+	public int GetDamage()
+	{
+		return Mathf.CeilToInt(warriors * armyDamage * 1.3f);
+	}
+
+	public bool DoDamage(int damage)
+	{
+		warriors -= damage;
+		if (warriors <= 0)
+		{
+			warriors = 0;
+			return false;
+		}
+		return true;
+	}
+
+	public void EndCombat(bool won)
+	{
+		if (!won)
+		{
+			piety -= pietyLossOnRaided;
+			aiMilitarySize += aiMilitarySize / 10;
 		}
 	}
 }
