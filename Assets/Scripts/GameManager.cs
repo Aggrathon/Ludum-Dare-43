@@ -48,4 +48,9 @@ public class GameManager : MonoBehaviour
 			rnd = instance.states.Count - 1;
 		return instance.states[rnd];
 	}
+
+	public static void RegisterOnTick(UnityAction act)
+	{
+		instance.onTick.AddListener(act);
+	}
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   time: 19
   cooldown: 20
   cost: 0.5
-  description: Increase the yield of your mines.
+  description: Increases the yield of your mines
   foodModifier: 1
   goldModifier: 1.2
   fertilityModifier: 1

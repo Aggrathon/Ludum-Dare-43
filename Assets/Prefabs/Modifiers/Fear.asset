@@ -14,7 +14,7 @@ MonoBehaviour:
   time: 7
   cooldown: 20
   cost: 0.5
-  description: Reduce the morale of an enemy army.
+  description: Reduces the morale of armies
   morale: 0.7
   damage: 1
   capture: 1

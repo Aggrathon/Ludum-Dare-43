@@ -14,7 +14,7 @@ MonoBehaviour:
   time: 5
   cooldown: 20
   cost: 0.5
-  description: Reduce the cost of recruiting new warriors.
+  description: Reduces the cost of recruiting new warriors
   foodModifier: 0.9
   goldModifier: 1
   fertilityModifier: 1

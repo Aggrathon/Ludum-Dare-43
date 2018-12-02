@@ -14,7 +14,7 @@ MonoBehaviour:
   time: 9
   cooldown: 20
   cost: 0.5
-  description: Decrease the food production of an enemy state.
+  description: Decreases the food production
   foodModifier: 0.8
   goldModifier: 1
   fertilityModifier: 0.8

@@ -91,7 +91,7 @@ public class State : MonoBehaviour, IBattleParticipant {
 
 	void AutoSacrifice()
 	{
-		int humans = (prisoners + farmers + miners + warriors + people);
+		int humans = this.humans;
 		int sacrifice = (int)(humans * Mathf.Min(autoSacrifice, 1f - piety));
 		int delta = Mathf.Min(sacrifice, prisoners);
 		int total = delta;
@@ -253,6 +253,25 @@ public class State : MonoBehaviour, IBattleParticipant {
 		{
 			piety -= pietyLossOnRaided;
 			aiMilitarySize += aiMilitarySize / 10;
+		}
+	}
+
+	public void ManualSacrifice()
+	{
+		float humans = (float)this.humans;
+		int maxSac = Mathf.FloorToInt(humans * Mathf.Min(0.5f, (1f - piety)));
+		if (prisoners > 0)
+		{
+			int delta = Mathf.Min(maxSac, prisoners);
+			prisoners -= delta;
+			piety += (float)delta / humans;
+			maxSac -= delta;
+		}
+		if (maxSac > 0)
+		{
+			int delta = Mathf.Min(maxSac, people);
+			people -= delta;
+			piety += (float)delta / humans;
 		}
 	}
 }

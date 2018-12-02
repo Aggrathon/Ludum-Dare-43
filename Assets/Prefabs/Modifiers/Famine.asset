@@ -14,7 +14,7 @@ MonoBehaviour:
   time: 9
   cooldown: 20
   cost: 0.5
-  description: Reduce the population growth of an enemy state.
+  description: Reduces the population growth
   foodModifier: 0.8
   goldModifier: 1
   fertilityModifier: 0.2

@@ -14,7 +14,7 @@ MonoBehaviour:
   time: 19
   cooldown: 20
   cost: 0.5
-  description: Increases the food production.
+  description: Increases the food production
   foodModifier: 1.2
   goldModifier: 1
   fertilityModifier: 1.2

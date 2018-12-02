@@ -52,18 +52,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26de98e0bdd9e3e4d86bccdf8d32e655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  people: 80
+  people: 50
   prisoners: 0
-  food: 100
+  food: 200
   gold: 100
-  farmers: 20
+  farmers: 50
   miners: 0
   warriors: 0
   piety: 0.5
   baseFoodMultiplier: 3
   baseGoldMultiplier: 0.1
-  baseFertility: 10
-  foodFertility: 0.1
+  baseFertility: 20
+  foodFertility: 0.05
   basePietyDecay: 0.03
   baseFoodCost: 1
   baseGoldCost: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
   aI: 1
   aiFree: 0.2
   aiMinMilitary: 80
-  aiMilitarySize: 200
+  aiMilitarySize: 120
   blessings:
   - {fileID: 11400000, guid: 28c7dd25f1b9001429bb99765394f4d6, type: 2}
   - {fileID: 11400000, guid: 5e4b6f6cb8e05e94ca91635bc6583752, type: 2}

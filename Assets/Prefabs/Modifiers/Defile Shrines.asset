@@ -14,7 +14,7 @@ MonoBehaviour:
   time: 7
   cooldown: 20
   cost: 0.5
-  description: Decrease the piety of an enemy state.
+  description: Decreases the piety
   foodModifier: 1
   goldModifier: 1
   fertilityModifier: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   time: 5
   cooldown: 20
   cost: 0.5
-  description: Decimate the population of an enemy state
+  description: Decimates the population
   food: 1
   gold: 1
   people: 0.85
