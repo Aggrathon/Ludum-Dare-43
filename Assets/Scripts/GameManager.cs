@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,8 +10,21 @@ public class GameManager : MonoBehaviour
 
 	public float tickRate = 1f;
 	public UnityEvent onTick;
+	public State player;
+
+	[Header("Pointers")]
+	public GameObject looseScreenPiety;
+
+	[Header("End Game")]
+	public float endGameTime = 120f;
+	public float endGameInterval = 10f;
+	public State ship;
+	public GameObject endScreen;
+
 
 	float nextTick;
+	float endTime;
+	int endArmySize = 200;
 	List<State> states;
 
 	private void Awake()
@@ -21,6 +36,7 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		nextTick = Time.time + tickRate;
+		endTime = Time.time + endGameTime;
 	}
 	
 	void Update()
@@ -31,6 +47,21 @@ public class GameManager : MonoBehaviour
 				states[i].Tick();
 			onTick.Invoke();
 			nextTick += tickRate;
+		}
+		if (player.piety < 0)
+		{
+			Time.timeScale = 0;
+			looseScreenPiety.SetActive(true);
+		}
+		if (endTime < Time.time)
+		{
+			ship.gameObject.SetActive(true);
+			if (ship.warriors > endArmySize)
+			{
+				endTime = Time.time + endGameInterval;
+				ship.Attack(player, endArmySize);
+				endArmySize += 100;
+			}
 		}
 	}
 
@@ -52,5 +83,21 @@ public class GameManager : MonoBehaviour
 	public static void RegisterOnTick(UnityAction act)
 	{
 		instance.onTick.AddListener(act);
+	}
+
+	public void Restart()
+	{
+		Time.timeScale = 1f;
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+
+	public static void EndGame()
+	{
+		Time.timeScale = 0;
+		instance.endScreen.SetActive(true);
+		int gold = Mathf.FloorToInt(instance.player.gold);
+		var text = instance.endScreen.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+		text.text = string.Format(text.text, instance.player.score + gold,
+			instance.player.score, gold);
 	}
 }

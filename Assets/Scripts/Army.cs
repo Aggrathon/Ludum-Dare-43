@@ -98,7 +98,7 @@ public class Army : MonoBehaviour, IBattleParticipant
 		return morale > 0;
 	}
 
-	public void EndCombat(bool won)
+	public virtual void EndCombat(bool won)
 	{
 		if (won)
 		{

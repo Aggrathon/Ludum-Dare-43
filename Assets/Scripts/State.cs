@@ -14,6 +14,7 @@ public class State : MonoBehaviour, IBattleParticipant {
 	public int miners = 0;
 	public int warriors = 0;
 	public float piety = 0.5f;
+	[NonSerialized] public int score = 0;
 	public int humans { get { return people + prisoners + farmers + miners + warriors; } }
 
 	[Header("Production")]

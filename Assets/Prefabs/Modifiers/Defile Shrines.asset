@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 7
   cooldown: 20
-  cost: 0.5
+  cost: 0.401
   description: Decreases the piety
   foodModifier: 1
   goldModifier: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 19
   cooldown: 20
-  cost: 0.5
+  cost: 0.356
   description: Increases the yield of your mines
   foodModifier: 1
   goldModifier: 1.2
