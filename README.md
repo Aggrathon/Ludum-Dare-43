@@ -1,6 +1,8 @@
 # Sunset Empire
 
-A game made for the 43:rd Ludum Dare game jam (48h-compo rules).  
+A game made for the 43:rd Ludum Dare game jam (48h-compo rules). 
+
+![Screenshot](https://github.com/Aggrathon/LudumDare43/raw/gh-pages/Screenshot.png)
 
 ## Description
 
