@@ -15,7 +15,7 @@ public class CArmy : Army
 		}
 		else
 		{
-			target.score += 10000;
+			target.score += 1000;
 			base.EndCombat(won);
 		}
 	}

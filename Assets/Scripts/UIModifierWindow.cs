@@ -28,7 +28,7 @@ public class UIModifierWindow : MonoBehaviour
 			button.onClick.AddListener(() => {
 				player.Bless(player.blessings[j]);
 				gameObject.SetActive(false);
-				pietyDisplay.Tick();
+				pietyDisplay.UpdateNextTick();
 			});
 			button.interactable = player.piety > player.blessings[i].cost;
 			panel.gameObject.SetActive(true);
@@ -69,6 +69,6 @@ public class UIModifierWindow : MonoBehaviour
 	{
 		cancelButton.SetActive(false);
 		player.Curse(curse, state);
-		pietyDisplay.Tick();
+		pietyDisplay.UpdateNextTick();
 	}
 }

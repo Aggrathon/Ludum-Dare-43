@@ -17,4 +17,15 @@ public class UIPiety : MonoBehaviour
 	{
 		meter.fillAmount = player.piety;
 	}
+
+	public void UpdateNextTick()
+	{
+		StartCoroutine(NextTick());
+	}
+
+	IEnumerator NextTick()
+	{
+		yield return null;
+		Tick();
+	}
 }
