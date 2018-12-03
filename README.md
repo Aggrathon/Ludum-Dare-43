@@ -26,5 +26,4 @@ with ritualistic sacrifices. But beware the arrival of a technologically advance
 ## Links
 
 [Entry for Ludum Dare 43](https://ldjam.com/events/ludum-dare/43/sunset-empire)  
-[Play the web version](https://aggrathon.github.io/LudumDare43/)  
-[Download executables](https://github.com/Aggrathon/LudumDare43/releases)  
+[Play the Game](https://aggrathon.github.io/LudumDare43/)  
