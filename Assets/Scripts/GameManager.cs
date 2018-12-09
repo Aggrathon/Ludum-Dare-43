@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 		}
 		if (player.piety < 0)
 		{
-			Time.timeScale = 0;
+			enabled = false;
 			looseScreenPiety.SetActive(true);
 		}
 		if (endTime < Time.time)
@@ -87,13 +87,12 @@ public class GameManager : MonoBehaviour
 
 	public void Restart()
 	{
-		Time.timeScale = 1f;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	public static void EndGame()
 	{
-		Time.timeScale = 0;
+		instance.enabled = false;
 		instance.endScreen.SetActive(true);
 		int gold = Mathf.FloorToInt(instance.player.gold);
 		var text = instance.endScreen.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
